@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        GIT_REPO = 'https://github.com/himanshugude/simple-java-project-1.git'
+        GIT_REPO = 'https://github.com/himanshugude/JavaProjectForMaven.git'
     }
 
     stages {
