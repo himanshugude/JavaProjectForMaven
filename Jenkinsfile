@@ -2,19 +2,19 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk' // This name must match the JDK name set in Jenkins > Global Tool Configuration
-        maven 'Maven-3.9.10' // Same here for Maven
+        jdk 'jdk' // This must match name in Jenkins > Global Tool Configuration
+        maven 'Maven-3.9.10'
     }
 
     environment {
-        GIT_REPO = 'https://github.com/himanshugude/JavaProjectForMaven.git'
+        IMAGE_NAME = 'java-app'
+        CONTAINER_NAME = 'java-app-container'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // You don't need to specify Git repo here if you're using "Pipeline from SCM"
-                echo "Code already checked out by Jenkins SCM config"
+                echo 'Code already checked out by Jenkins SCM config'
             }
         }
 
@@ -29,6 +29,25 @@ pipeline {
                 bat 'mvn test'
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    bat "docker build -t %IMAGE_NAME% ."
+                }
+            }
+        }
+
+        stage('Docker Run') {
+            steps {
+                script {
+                    // Stop and remove existing container if already running
+                    bat "docker stop %CONTAINER_NAME% || echo Not running"
+                    bat "docker rm %CONTAINER_NAME% || echo Already removed"
+                    bat "docker run -d --name %CONTAINER_NAME% -p 8080:8080 %IMAGE_NAME%"
+                }
+            }
+        }
     }
 
     post {
@@ -36,10 +55,10 @@ pipeline {
             echo 'Pipeline completed.'
         }
         success {
-            echo 'Build succeeded!'
+            echo 'Build and deployment succeeded!'
         }
         failure {
-            echo 'Build failed.'
+            echo 'Build or deployment failed.'
         }
     }
 }
