@@ -5,14 +5,14 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>simple-java-app</artifactId>
+    <artifactId>java-app</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <sonar.projectKey>simple-java-app</sonar.projectKey>
-        <sonar.projectName>Simple Java App</sonar.projectName>
+        <sonar.projectKey>java-app</sonar.projectKey>
+        <sonar.projectName>java-app</sonar.projectName>
         <sonar.host.url>http://localhost:9000</sonar.host.url>
         <sonar.login>your-sonarqube-token</sonar.login> <!-- Replace with actual token -->
     </properties>
