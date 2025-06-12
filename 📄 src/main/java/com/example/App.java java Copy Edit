@@ -1,7 +1,14 @@
 package com.example;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello from Simple Java App!");
+        while (true) {
+            System.out.println("App is running...");
+            try {
+                Thread.sleep(10000); // Keeps the app alive
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }
