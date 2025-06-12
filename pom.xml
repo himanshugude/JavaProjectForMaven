@@ -11,10 +11,24 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <sonar.projectKey>simple-java-app</sonar.projectKey>
+        <sonar.projectName>Simple Java App</sonar.projectName>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.login>your-sonarqube-token</sonar.login> <!-- Replace with actual token -->
     </properties>
 
     <dependencies>
         <!-- No external dependencies for now -->
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.10.0.2594</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
