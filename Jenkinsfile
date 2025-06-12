@@ -2,13 +2,14 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk' // This must match name in Jenkins > Global Tool Configuration
+        jdk 'jdk' // This must match the name in Jenkins > Global Tool Configuration
         maven 'Maven-3.9.10'
     }
 
     environment {
         IMAGE_NAME = 'java-app'
         CONTAINER_NAME = 'java-app-container'
+        SONARQUBE_SERVER = 'SonarQubeServer' // Name configured in Jenkins > Manage Jenkins > Configure System
     }
 
     stages {
@@ -30,6 +31,14 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
+                    bat 'mvn sonar:sonar'
+                }
+            }
+        }
+
         stage('Docker Build') {
             steps {
                 script {
@@ -42,7 +51,7 @@ pipeline {
             steps {
                 script {
                     // Stop and remove existing container if already running
-                   bat "docker stop %CONTAINER_NAME% || echo Not running"
+                    bat "docker stop %CONTAINER_NAME% || echo Not running"
                     bat "docker rm %CONTAINER_NAME% || echo Already removed"
                     bat "docker run -dt --name %CONTAINER_NAME% -p 8082:8082 %IMAGE_NAME%"
                 }
