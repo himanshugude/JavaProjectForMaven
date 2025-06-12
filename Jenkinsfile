@@ -42,8 +42,8 @@ pipeline {
             steps {
                 script {
                     // Stop and remove existing container if already running
-                    bat "docker stop %CONTAINER_NAME% || echo Not running"
-                    bat "docker rm %CONTAINER_NAME% || echo Already removed"
+               //     bat "docker stop %CONTAINER_NAME% || echo Not running"
+                 //   bat "docker rm %CONTAINER_NAME% || echo Already removed"
                     bat "docker run -d --name %CONTAINER_NAME% -p 8080:8080 %IMAGE_NAME%"
                 }
             }
