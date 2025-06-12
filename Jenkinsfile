@@ -44,7 +44,7 @@ pipeline {
                     // Stop and remove existing container if already running
                    bat "docker stop %CONTAINER_NAME% || echo Not running"
                     bat "docker rm %CONTAINER_NAME% || echo Already removed"
-                    bat "docker run -d --name %CONTAINER_NAME% -p 8082:8082 %IMAGE_NAME%"
+                    bat "docker run -dt --name %CONTAINER_NAME% -p 8082:8082 %IMAGE_NAME%"
                 }
             }
         }
